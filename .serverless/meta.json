@@ -1,0 +1,126 @@
+{
+  "C:\\Users\\neto_\\Desktop\\TESTE_SERVELESS_STEFANINI\\serveless-challenge": {
+    "versionSfCore": null,
+    "versionFramework": "4.1.6",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeServiceName": null,
+    "servicePath": "C:\\Users\\neto_\\Desktop\\TESTE_SERVELESS_STEFANINI\\serveless-challenge",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "employee-service",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs14.x",
+        "environment": {
+          "DYNAMODB_TABLE": "employee-service-${opt:stage, self:provider.stage}"
+        }
+      },
+      "functions": {
+        "createEmployee": {
+          "handler": "src/handlers/employeeHandlers.createEmployee",
+          "events": [
+            {
+              "http": {
+                "path": "employee",
+                "method": "post"
+              }
+            }
+          ]
+        },
+        "getEmployeeById": {
+          "handler": "src/handlers/employeeHandlers.getEmployeeById",
+          "events": [
+            {
+              "http": {
+                "path": "employee/{id}",
+                "method": "get"
+              }
+            }
+          ]
+        },
+        "updateEmployee": {
+          "handler": "src/handlers/employeeHandlers.updateEmployee",
+          "events": [
+            {
+              "http": {
+                "path": "employee/{id}",
+                "method": "put"
+              }
+            }
+          ]
+        },
+        "deleteEmployee": {
+          "handler": "src/handlers/employeeHandlers.deleteEmployee",
+          "events": [
+            {
+              "http": {
+                "path": "employee/{id}",
+                "method": "delete"
+              }
+            }
+          ]
+        }
+      },
+      "resources": {
+        "Resources": {
+          "EmployeesDynamoDBTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "employee-service-${opt:stage, self:provider.stage}",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "BillingMode": "PAY_PER_REQUEST"
+            }
+          }
+        }
+      }
+    },
+    "serviceRawFile": "service: employee-service\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs14.x\r\n  environment:\r\n    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}\r\n\r\nfunctions:\r\n  createEmployee:\r\n    handler: src/handlers/employeeHandlers.createEmployee\r\n    events:\r\n      - http:\r\n          path: employee\r\n          method: post\r\n  getEmployeeById:\r\n    handler: src/handlers/employeeHandlers.getEmployeeById\r\n    events:\r\n      - http:\r\n          path: employee/{id}\r\n          method: get\r\n  updateEmployee:\r\n    handler: src/handlers/employeeHandlers.updateEmployee\r\n    events:\r\n      - http:\r\n          path: employee/{id}\r\n          method: put\r\n  deleteEmployee:\r\n    handler: src/handlers/employeeHandlers.deleteEmployee\r\n    events:\r\n      - http:\r\n          path: employee/{id}\r\n          method: delete\r\n\r\nresources:\r\n  Resources:\r\n    EmployeesDynamoDBTable:\r\n      Type: AWS::DynamoDB::Table\r\n      Properties:\r\n        TableName: ${self:service}-${opt:stage, self:provider.stage}\r\n        AttributeDefinitions:\r\n          - AttributeName: id\r\n            AttributeType: S\r\n        KeySchema:\r\n          - AttributeName: id\r\n            KeyType: HASH\r\n        BillingMode: PAY_PER_REQUEST\r\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": {
+      "message": "Failed to resolve variable 'provider.stage' with resolver 'config' and provider 'self': Error: Key \"provider.stage\" is not defined in config file",
+      "stack": "Error: Failed to resolve variable 'provider.stage' with resolver 'config' and provider 'self': Error: Key \"provider.stage\" is not defined in config file\n    at #resolveKey (file:///C:/Users/neto_/.serverless/releases/4.1.6/package/dist/sf-core.js:1085:43511)\n    at _ResolverManager.resolve (file:///C:/Users/neto_/.serverless/releases/4.1.6/package/dist/sf-core.js:1085:48440)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async #handlePlaceholderNode (file:///C:/Users/neto_/.serverless/releases/4.1.6/package/dist/sf-core.js:1085:47272)\n    at async file:///C:/Users/neto_/.serverless/releases/4.1.6/package/dist/sf-core.js:1085:45407\n    at async processNodeAndHandleCompletion (file:///C:/Users/neto_/.serverless/releases/4.1.6/package/dist/sf-core.js:1085:38403)",
+      "code": "RESOLVER_RESOLVE_VARIABLE_ERROR"
+    },
+    "machineId": "a52957bd563ed97f2aea5a32ed6f8022",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "0b8cb13a-d672-43f8-a588-d8bf07dcf5a6",
+    "orgName": "omarques",
+    "userId": "DDlkFV3qVqHHGKQn4r",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "omarques",
+    "subscription": null,
+    "userEmail": "netoguitars@gmail.com",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "058264381908",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}

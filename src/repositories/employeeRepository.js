@@ -8,8 +8,13 @@ class EmployeeRepository {
             TableName: tableName,
             Item: employee
         };
-        await dynamoDb.put(params).promise();
-        return employee;
+        try {
+            await dynamoDb.put(params).promise();
+            return employee;
+        } catch (error) {
+            console.error('Error creating employee:', error);
+            throw error;
+        }
     }
 
     async getEmployeeById(id) {
