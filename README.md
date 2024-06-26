@@ -1,5 +1,5 @@
 # serveless-challenge
-# Employee Service
+# Atendimento ao Funcionário
 
 Este projeto é uma aplicação Serverless usando AWS Lambda para gerenciar dados de funcionários.
 
